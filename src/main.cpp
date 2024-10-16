@@ -60,7 +60,9 @@ void wifiManager(){
 
   WiFiManager wifiManager;
 
-  if(!wifiManager.autoConnect("AutoConnectAP")) {
+  // wifiManager.resetSettings();
+
+  if(!wifiManager.autoConnect("PETAMEN ESP32", "password")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     ESP.restart();
@@ -74,11 +76,11 @@ void wifiManager(){
 void temp_display(){
   float tempCelsius = readTemp();
   Serial.print("Temperature: ");
-  Serial.print(tempCelsius, 1);
+  Serial.print(tempCelsius, 0);
   Serial.println(" °C");
 
   char tempStr[6];
-  dtostrf(tempCelsius, 4, 1, tempStr);
+  dtostrf(tempCelsius, 4, 0, tempStr);
   client.publish("petamen/temp", tempStr);
 }
 
